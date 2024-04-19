@@ -1,8 +1,0 @@
-{
-    "require": {
-        "ray/aop": "^2.14"
-    },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.58"
-    }
-}
