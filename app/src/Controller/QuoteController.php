@@ -2,20 +2,18 @@
 
 namespace App\Controller;
 
+use App\Repository\MovieRepository;
 use App\Repository\QuoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuoteController extends AbstractController {
-    #[Route('/', name: 'index')]
-    public function index(QuoteRepository $quoteRepository): Response
-    {
-        return $this->render(
-            'quote/index.html.twig',
-            [
-                'quotes' => $quoteRepository->findAll(),
-            ]
-        );
+    #[Route('movies/', name: 'index')]
+    public function index(MovieRepository $movieRepository): Response{
+
+    $movies = $movieRepository->findAll();
+    dd($movies);
+    return $this->render('index.html.twig');
     }
 }
