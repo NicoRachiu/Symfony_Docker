@@ -13,7 +13,7 @@ class QuoteController extends AbstractController {
     public function index(MovieRepository $movieRepository): Response{
 
     $movies = $movieRepository->findAll();
-    dd($movies);
-    return $this->render('index.html.twig');
+
+    return $this->render('quote/index.html.twig', ['movies' => $movies]);
     }
 }

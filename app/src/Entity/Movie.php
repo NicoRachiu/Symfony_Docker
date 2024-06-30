@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Repository\MovieRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
@@ -18,17 +19,18 @@ class Movie
 
     #[ORM\Column]
     private ?int $releaseYear = null;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Actor::class, inversedBy="movies")
-     */
-    private $actors;
     
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    /**
+     * @var Collection<int, Actor>
+     */
+    #[ORM\ManyToMany(targetEntity: Actor::class)]
+    private Collection $actors;
 
     public function __construct()
     {
@@ -87,11 +89,27 @@ class Movie
 
         return $this;
     }
-    public function addActor(Actor $actor): self
+
+    /**
+     * @return Collection<int, Actor>
+     */
+    public function getActors(): Collection
+    {
+        return $this->actors;
+    }
+
+    public function addActor(Actor $actor): static
     {
         if (!$this->actors->contains($actor)) {
-            $this->actors[] = $actor;
+            $this->actors->add($actor);
         }
+
+        return $this;
+    }
+
+    public function removeActor(Actor $actor): static
+    {
+        $this->actors->removeElement($actor);
 
         return $this;
     }
