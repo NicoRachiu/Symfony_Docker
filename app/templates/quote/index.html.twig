@@ -3,7 +3,14 @@
 {% block title %}Quotes{% endblock %}
 
 {% block body %}
-    <h1>
-   {{ movies }}
+    <h1 class="bg-blue-500 text-2xl text-center font-bold">
+        <ul>
+            {% for movie in movies %}
+                <li>{{ movie.title }}</li>
+            {% endfor %}
+        </ul>
     </h1>
+    <h2 class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center">
+       test
+    </h2>
 {% endblock %}
